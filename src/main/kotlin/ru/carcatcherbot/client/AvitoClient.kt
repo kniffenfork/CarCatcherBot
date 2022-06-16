@@ -2,7 +2,6 @@ package ru.carcatcherbot.client
 
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
-import org.springframework.web.client.getForEntity
 import ru.carcatcherbot.dto.AvitoAdResponseDto
 import ru.carcatcherbot.properties.AvitoApiProperties
 

@@ -1,5 +1,6 @@
 package ru.carcatcherbot.bot
 
+import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand
@@ -21,15 +22,11 @@ class CarCatcherBot(
         }
     }
 
-    override fun getBotToken(): String {
-        return botProperty.token
-    }
+    override fun getBotToken() = botProperty.token
 
-    override fun getBotUsername(): String {
-        return botProperty.name
-    }
+    override fun getBotUsername() = botProperty.name
 
     override fun processNonCommandUpdate(update: Update) {
-        nonCommand.execute(update.message, this)
+        nonCommand.execute(update.message)
     }
 }

@@ -1,29 +1,33 @@
 package ru.carcatcherbot.service
 
 import org.springframework.stereotype.Service
-import ru.carcatcherbot.commands.Steps
 import ru.carcatcherbot.domain.model.TelegramUser
 import ru.carcatcherbot.domain.model.UserParams
 import ru.carcatcherbot.domain.repository.RequiredFieldMissedException
 import ru.carcatcherbot.domain.repository.UserNotFoundException
 import ru.carcatcherbot.domain.repository.UserRepository
+import ru.carcatcherbot.states.States
 
 interface UserService {
-    fun getBy(id: Long): TelegramUser
+    fun getBy(userId: Long): TelegramUser
     fun create(params: UserParams): TelegramUser
-    fun updateUserStep(telegramUser: TelegramUser, step: Steps)
+    fun updateUserState(telegramUser: TelegramUser, state: States)
+
+    fun getUserStateBy(userId: Long): States
 }
 
 @Service
-class UserServiceImpl(private val userRepository: UserRepository) : UserService {
-    override fun getBy(id: Long): TelegramUser {
-        return userRepository.findById(id).orElseThrow { UserNotFoundException(id) }
+class UserServiceImpl(
+    private val userRepository: UserRepository,
+) : UserService {
+    override fun getBy(userId: Long): TelegramUser {
+        return userRepository.findById(userId).orElseThrow { UserNotFoundException(userId) }
     }
 
     override fun create(params: UserParams): TelegramUser {
         val telegramUser = TelegramUser(
             id = params.id ?: throw RequiredFieldMissedException("id"),
-            step = params.step ?: throw RequiredFieldMissedException("step"),
+            state = params.state ?: throw RequiredFieldMissedException("state"),
             firstName = params.firstName ?: "",
             lastName = params.lastName ?: "",
             username = params.username ?: throw RequiredFieldMissedException("username"),
@@ -31,7 +35,11 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
         return userRepository.save(telegramUser)
     }
 
-    override fun updateUserStep(telegramUser: TelegramUser, step: Steps) {
-        userRepository.save(telegramUser.copy(step = step))
+    override fun updateUserState(telegramUser: TelegramUser, state: States) {
+        userRepository.save(telegramUser.copy(state = state))
+    }
+
+    override fun getUserStateBy(userId: Long): States {
+        return getBy(userId).state
     }
 }

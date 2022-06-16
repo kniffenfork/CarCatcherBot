@@ -1,7 +1,13 @@
 package ru.carcatcherbot.domain.model
 
-import ru.carcatcherbot.commands.Steps
-import javax.persistence.*
+import ru.carcatcherbot.states.States
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
+import javax.persistence.Id
+import javax.persistence.OneToMany
+import javax.persistence.Table
 
 @Entity
 @Table(name = "users")
@@ -10,9 +16,9 @@ data class TelegramUser(
     @Column(name = "id")
     val id: Long = 0,
 
-    @Column(name = "step_code")
+    @Column(name = "state_code")
     @Enumerated(EnumType.STRING)
-    val step: Steps = Steps.UNKNOWN,
+    val state: States = States.UNKNOWN,
 
     @Column(name = "username")
     val username: String = "",

@@ -3,7 +3,7 @@ create table users(
                       first_name varchar(100),
                       last_name varchar(100),
                       username varchar(100) not null,
-                      step_code varchar(100) not null
+                      state_code varchar(100) not null
 );
 
 create table car_searches(

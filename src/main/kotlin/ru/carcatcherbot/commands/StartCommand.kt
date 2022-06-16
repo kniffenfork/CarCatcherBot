@@ -10,6 +10,7 @@ import ru.carcatcherbot.domain.model.TelegramUser
 import ru.carcatcherbot.domain.model.UserParams
 import ru.carcatcherbot.domain.repository.UserNotFoundException
 import ru.carcatcherbot.service.UserService
+import ru.carcatcherbot.states.States
 
 @Component
 class StartCommand(
@@ -19,11 +20,11 @@ class StartCommand(
     override fun execute(absSender: AbsSender, user: User, chat: Chat, arguments: Array<out String>) {
         val telegramUser = createUserIfNotExists(user)
         sendGreetingsMessage(absSender, chat)
-        userService.updateUserStep(telegramUser, Steps.WAITING_FOR_SEARCH_PARAMS)
+        userService.updateUserState(telegramUser, States.WAITING_FOR_MODEL_INPUT)
     }
 
     private fun sendGreetingsMessage(absSender: AbsSender, chat: Chat) {
-        val message = "Добро пожаловать в бот CarCatcher! Давайте настроим поиск"
+        val message = "Добро пожаловать в бот CarCatcher! Давайте настроим поиск)"
         absSender.execute(SendMessage(chat.id.toString(), message))
     }
 
@@ -36,7 +37,7 @@ class StartCommand(
                 username = user.userName,
                 lastName = user.lastName,
                 firstName = user.firstName,
-                step = Steps.START
+                state = States.START
             )
             userService.create(params)
         }
