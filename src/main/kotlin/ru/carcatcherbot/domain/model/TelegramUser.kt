@@ -1,6 +1,6 @@
 package ru.carcatcherbot.domain.model
 
-import ru.carcatcherbot.states.States
+import ru.carcatcherbot.state.States
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType
@@ -18,7 +18,7 @@ data class TelegramUser(
 
     @Column(name = "state_code")
     @Enumerated(EnumType.STRING)
-    val state: States = States.UNKNOWN,
+    val states: States = States.UNKNOWN,
 
     @Column(name = "username")
     val username: String = "",

@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Lazy
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
-import ru.carcatcherbot.events.SendMessageEvent
+import ru.carcatcherbot.event.SendMessageEvent
 import ru.carcatcherbot.service.MessageService
 
 @Component

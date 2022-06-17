@@ -1,11 +1,11 @@
 package ru.carcatcherbot.domain.model
 
-import ru.carcatcherbot.states.States
+import ru.carcatcherbot.state.States
 
 data class UserParams(
     val id: Long?,
     val username: String?,
     val firstName: String?,
     val lastName: String?,
-    val state: States?
+    val states: States?
 )

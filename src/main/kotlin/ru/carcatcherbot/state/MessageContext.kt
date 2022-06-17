@@ -1,4 +1,4 @@
-package ru.carcatcherbot.states
+package ru.carcatcherbot.state
 
 import org.springframework.stereotype.Service
 import org.telegram.telegrambots.meta.api.objects.Message
@@ -7,8 +7,8 @@ import org.telegram.telegrambots.meta.api.objects.Message
 class MessageContext(
     private val stateHandlers: Map<String, StateHandler>
 ) {
-    fun execute(state: States, message: Message) {
-        val stateHandler = stateHandlers[state.name] ?: throw IllegalArgumentException("The state ${state.name} does not exist")
+    fun execute(states: States, message: Message) {
+        val stateHandler = stateHandlers[states.name] ?: throw IllegalArgumentException("The state ${states.name} does not exist")
         stateHandler.handle(message)
     }
 }

@@ -1,9 +1,9 @@
-package ru.carcatcherbot.states.handlers
+package ru.carcatcherbot.state.handler
 
 import org.springframework.stereotype.Service
 import org.telegram.telegrambots.meta.api.objects.Message
-import ru.carcatcherbot.states.StateHandler
-import ru.carcatcherbot.states.States
+import ru.carcatcherbot.state.StateHandler
+import ru.carcatcherbot.state.States
 
 @Service(States.SETTING_REGION_HANDLER)
 class SettingRegionHandler : StateHandler {

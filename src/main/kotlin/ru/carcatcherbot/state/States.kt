@@ -1,4 +1,4 @@
-package ru.carcatcherbot.states
+package ru.carcatcherbot.state
 
 enum class States(val description: String) {
     START("Start the bot"),
@@ -9,7 +9,7 @@ enum class States(val description: String) {
     UNKNOWN("Unknown state");
 
     companion object {
-        const val START_HANDLER = "START"
+        const val STARTING_HANDLER = "START"
         const val SETTING_REGION_HANDLER = "WAITING_FOR_REGION_INPUT"
         const val SETTING_CITY_HANDLER = "WAITING_FOR_CITY_INPUT"
         const val SETTING_MARK_HANDLER = "WAITING_FOR_MARK_INPUT"

@@ -3,7 +3,7 @@ package ru.carcatcherbot.client
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import ru.carcatcherbot.dto.AvitoAdResponseDto
-import ru.carcatcherbot.properties.AvitoApiProperties
+import ru.carcatcherbot.property.AvitoApiProperties
 
 interface AvitoClient {
     fun fetchAdds(model: String): AvitoAdResponseDto?

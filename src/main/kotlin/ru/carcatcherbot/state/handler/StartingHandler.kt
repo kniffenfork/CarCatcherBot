@@ -1,13 +1,13 @@
-package ru.carcatcherbot.states.handlers
+package ru.carcatcherbot.state.handler
 
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.telegram.telegrambots.meta.api.objects.Message
-import ru.carcatcherbot.events.SendMessageEvent
-import ru.carcatcherbot.states.StateHandler
-import ru.carcatcherbot.states.States
+import ru.carcatcherbot.event.SendMessageEvent
+import ru.carcatcherbot.state.StateHandler
+import ru.carcatcherbot.state.States
 
-@Service(States.START_HANDLER)
+@Service(States.STARTING_HANDLER)
 class StartingHandler(
     private val applicationEventPublisher: ApplicationEventPublisher
 ) : StateHandler {

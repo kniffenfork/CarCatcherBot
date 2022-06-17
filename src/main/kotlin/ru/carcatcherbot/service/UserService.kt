@@ -6,12 +6,12 @@ import ru.carcatcherbot.domain.model.UserParams
 import ru.carcatcherbot.domain.repository.RequiredFieldMissedException
 import ru.carcatcherbot.domain.repository.UserNotFoundException
 import ru.carcatcherbot.domain.repository.UserRepository
-import ru.carcatcherbot.states.States
+import ru.carcatcherbot.state.States
 
 interface UserService {
     fun getBy(userId: Long): TelegramUser
     fun create(params: UserParams): TelegramUser
-    fun updateUserState(telegramUser: TelegramUser, state: States)
+    fun updateUserState(telegramUser: TelegramUser, states: States)
 
     fun getUserStateBy(userId: Long): States
 }
@@ -27,7 +27,7 @@ class UserServiceImpl(
     override fun create(params: UserParams): TelegramUser {
         val telegramUser = TelegramUser(
             id = params.id ?: throw RequiredFieldMissedException("id"),
-            state = params.state ?: throw RequiredFieldMissedException("state"),
+            states = params.states ?: throw RequiredFieldMissedException("state"),
             firstName = params.firstName ?: "",
             lastName = params.lastName ?: "",
             username = params.username ?: throw RequiredFieldMissedException("username"),
@@ -35,11 +35,11 @@ class UserServiceImpl(
         return userRepository.save(telegramUser)
     }
 
-    override fun updateUserState(telegramUser: TelegramUser, state: States) {
-        userRepository.save(telegramUser.copy(state = state))
+    override fun updateUserState(telegramUser: TelegramUser, states: States) {
+        userRepository.save(telegramUser.copy(states = states))
     }
 
     override fun getUserStateBy(userId: Long): States {
-        return getBy(userId).state
+        return getBy(userId).states
     }
 }

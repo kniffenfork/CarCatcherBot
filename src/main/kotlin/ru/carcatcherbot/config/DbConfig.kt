@@ -3,7 +3,7 @@ package ru.carcatcherbot.config
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import ru.carcatcherbot.properties.DbProperties
+import ru.carcatcherbot.property.DbProperties
 import javax.sql.DataSource
 
 @Configuration

@@ -1,4 +1,4 @@
-package ru.carcatcherbot.events
+package ru.carcatcherbot.event
 
 class SendMessageEvent(
     val chatId: Long,
