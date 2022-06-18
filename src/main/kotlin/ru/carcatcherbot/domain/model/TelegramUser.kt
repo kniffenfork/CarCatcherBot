@@ -1,6 +1,5 @@
 package ru.carcatcherbot.domain.model
 
-import ru.carcatcherbot.state.States
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType

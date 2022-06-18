@@ -1,4 +1,4 @@
-package ru.carcatcherbot.domain.repository
+package ru.carcatcherbot.service
 
 open class PersistenceException(override val message: String) : Throwable(message = message)
 

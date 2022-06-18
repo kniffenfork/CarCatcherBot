@@ -1,19 +1,18 @@
 package ru.carcatcherbot.service
 
 import org.springframework.stereotype.Service
+import org.telegram.telegrambots.meta.api.objects.User
 import ru.carcatcherbot.domain.model.TelegramUser
 import ru.carcatcherbot.domain.model.UserParams
-import ru.carcatcherbot.domain.repository.RequiredFieldMissedException
-import ru.carcatcherbot.domain.repository.UserNotFoundException
 import ru.carcatcherbot.domain.repository.UserRepository
-import ru.carcatcherbot.state.States
+import ru.carcatcherbot.domain.model.States
 
 interface UserService {
     fun getBy(userId: Long): TelegramUser
     fun create(params: UserParams): TelegramUser
-    fun updateUserState(telegramUser: TelegramUser, states: States)
+    fun updateUserState(user: User, states: States)
 
-    fun getUserStateBy(userId: Long): States
+    fun getStateBy(userId: Long): States
 }
 
 @Service
@@ -35,11 +34,12 @@ class UserServiceImpl(
         return userRepository.save(telegramUser)
     }
 
-    override fun updateUserState(telegramUser: TelegramUser, states: States) {
+    override fun updateUserState(user: User, states: States) {
+        val telegramUser = getBy(user.id)
         userRepository.save(telegramUser.copy(states = states))
     }
 
-    override fun getUserStateBy(userId: Long): States {
+    override fun getStateBy(userId: Long): States {
         return getBy(userId).states
     }
 }
