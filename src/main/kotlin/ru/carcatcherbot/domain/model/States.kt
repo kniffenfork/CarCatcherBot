@@ -6,5 +6,7 @@ enum class States(val description: String) {
     WAITING_FOR_CITY_INPUT("Waiting for user to enter the city of the search"),
     WAITING_FOR_MARK_INPUT("Waiting for the user to enter the car mark for the search"),
     WAITING_FOR_MODEL_INPUT("Waiting for the user to enter the car model for the search"),
+    READY_TO_RECEIVE_ADS("Message with settings"),
+    RECEIVING_ADS("Service send to user ads via provided searches"),
     UNKNOWN("Unknown state");
 }

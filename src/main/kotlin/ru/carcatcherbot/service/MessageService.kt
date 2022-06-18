@@ -31,7 +31,7 @@ class MessageServiceImpl(
     private fun Button.toInlineKeyboardButton(): InlineKeyboardButton {
         val inlineKeyboardButton = InlineKeyboardButton()
         inlineKeyboardButton.text = this.text
-        inlineKeyboardButton.callbackData = this.callbackData
+        inlineKeyboardButton.callbackData = this.callback.code
         return inlineKeyboardButton
     }
 }

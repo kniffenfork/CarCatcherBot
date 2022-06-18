@@ -4,13 +4,13 @@ import org.springframework.stereotype.Component
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand
 import org.telegram.telegrambots.meta.api.objects.Update
-import ru.carcatcherbot.bot.property.Properties
+import ru.carcatcherbot.bot.property.BotProperties
 import ru.carcatcherbot.service.ReceiverService
 import javax.annotation.PostConstruct
 
 @Component
 class CarCatcherBot(
-    private val botProperty: Properties,
+    private val botProperty: BotProperties,
     private val botCommands: List<IBotCommand>,
     private val receiverService: ReceiverService
 ) : TelegramLongPollingCommandBot() {

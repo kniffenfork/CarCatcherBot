@@ -3,19 +3,19 @@ package ru.carcatcherbot.domain.config
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import ru.carcatcherbot.domain.property.Properties
+import ru.carcatcherbot.domain.property.DbProperties
 import javax.sql.DataSource
 
 @Configuration
-class Config(private val properties: Properties) {
+class DbConfig(private val dbProperties: DbProperties) {
     @Bean
     fun getDatasource(): DataSource {
         return DataSourceBuilder
             .create()
             .driverClassName("org.postgresql.Driver")
-            .url(properties.url)
-            .username(properties.username)
-            .password(properties.password)
+            .url(dbProperties.url)
+            .username(dbProperties.username)
+            .password(dbProperties.password)
             .build()
     }
 }

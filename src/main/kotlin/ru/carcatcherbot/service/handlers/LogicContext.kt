@@ -10,11 +10,11 @@ class LogicContext(
     private val callbackHandlers: List<CallbackHandler>
 ) {
     fun execute(message: Message) {
-        messageHandlers.filter { it.isAvailableForStateOf(message.from) }.forEach { it.handle(message) }
+        messageHandlers.filter { it.isAvailableForStateOf(message.chat) }.forEach { it.handle(message) }
     }
 
     fun execute(callbackQuery: CallbackQuery) {
-        callbackHandlers.filter { it.isAvailableForStateOf(callbackQuery.from) }
+        callbackHandlers.filter { it.isAvailableForStateOf(callbackQuery.message.chat) }
             .filter { it.getCallbackCode() == callbackQuery.data }
             .forEach { it.handle(callbackQuery) }
     }

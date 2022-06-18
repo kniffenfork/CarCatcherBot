@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope
 import org.springframework.web.client.RestTemplate
 
 @Configuration
-class Config {
+class ClientConfig {
     @Bean
     @Scope("prototype")
     fun getRestTemplate(): RestTemplate {

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 @ConfigurationProperties(prefix = "db")
-data class Properties(
+data class DbProperties(
     var url: String = "",
     var username: String = "",
     var password: String = ""

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 @ConfigurationProperties(prefix = "avito-api")
-data class Properties(
+data class AvitoProperties(
     var url: String = "",
     var user: String = "",
     var token: String = ""

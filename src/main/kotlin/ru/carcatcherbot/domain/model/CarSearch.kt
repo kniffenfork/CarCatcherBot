@@ -2,6 +2,8 @@ package ru.carcatcherbot.domain.model
 
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.ManyToOne
 import javax.persistence.Table
@@ -10,8 +12,15 @@ import javax.persistence.Table
 @Table(name = "car_searches")
 data class CarSearch(
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    val id: Long = 0,
+    val id: Long? = null,
+
+    @Column(name = "city")
+    val city: String = "",
+
+    @Column(name = "region")
+    val region: String = "",
 
     @Column(name = "mark")
     val mark: String = "",
@@ -23,5 +32,5 @@ data class CarSearch(
     val generation: String = "",
 
     @ManyToOne
-    val telegramUser: TelegramUser = TelegramUser()
+    val chat: TelegramChat = TelegramChat()
 )
