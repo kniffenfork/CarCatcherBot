@@ -1,4 +1,4 @@
-package ru.carcatcherbot.service.logic.search
+package ru.carcatcherbot.service.search
 
 data class CarSearchParams(
     val mark: String = "",

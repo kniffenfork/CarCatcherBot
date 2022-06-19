@@ -32,5 +32,5 @@ data class CarSearch(
     val generation: String = "",
 
     @ManyToOne
-    val chat: TelegramChat = TelegramChat()
+    val user: TelegramUser = TelegramUser()
 )

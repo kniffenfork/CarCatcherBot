@@ -2,6 +2,9 @@ package ru.carcatcherbot.domain.model
 
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
+import javax.persistence.FetchType
 import javax.persistence.Id
 import javax.persistence.OneToMany
 import javax.persistence.Table
@@ -22,6 +25,13 @@ data class TelegramUser(
     @Column(name = "last_name")
     val lastName: String = "",
 
-    @OneToMany(mappedBy = "user")
-    val chats: List<TelegramChat> = emptyList()
+    @Column(name = "state_code")
+    @Enumerated(EnumType.STRING)
+    val state: States = States.UNKNOWN,
+
+    @Column(name = "last_message_id")
+    val lastMessageId: Long = 0,
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    val carSearches: List<CarSearch> = emptyList(),
 )

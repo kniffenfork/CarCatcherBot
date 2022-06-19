@@ -1,4 +1,4 @@
-package ru.carcatcherbot.service.logic.search
+package ru.carcatcherbot.service.search
 
 import org.springframework.stereotype.Service
 import ru.carcatcherbot.domain.model.CarSearch

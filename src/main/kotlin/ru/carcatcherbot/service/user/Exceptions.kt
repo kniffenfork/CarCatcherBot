@@ -1,4 +1,4 @@
-package ru.carcatcherbot.service.logic.user
+package ru.carcatcherbot.service.user
 
 open class UserServiceException(override val message: String) : Exception(message)
 
