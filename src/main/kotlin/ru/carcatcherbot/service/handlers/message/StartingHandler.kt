@@ -4,10 +4,10 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.telegram.telegrambots.meta.api.objects.Message
 import org.telegram.telegrambots.meta.api.objects.User
-import ru.carcatcherbot.service.events.SendMessageEvent
-import ru.carcatcherbot.service.user.UserService
-import ru.carcatcherbot.service.handlers.MessageHandler
 import ru.carcatcherbot.domain.model.States
+import ru.carcatcherbot.service.events.SendMessageEvent
+import ru.carcatcherbot.service.handlers.MessageHandler
+import ru.carcatcherbot.service.user.UserService
 
 @Service
 class StartingHandler(

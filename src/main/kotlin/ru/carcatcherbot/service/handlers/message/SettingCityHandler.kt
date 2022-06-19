@@ -3,8 +3,8 @@ package ru.carcatcherbot.service.handlers.message
 import org.springframework.stereotype.Service
 import org.telegram.telegrambots.meta.api.objects.Message
 import org.telegram.telegrambots.meta.api.objects.User
-import ru.carcatcherbot.service.handlers.MessageHandler
 import ru.carcatcherbot.domain.model.States
+import ru.carcatcherbot.service.handlers.MessageHandler
 import ru.carcatcherbot.service.user.UserService
 
 @Service
