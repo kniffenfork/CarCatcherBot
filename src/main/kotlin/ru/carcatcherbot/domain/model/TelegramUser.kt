@@ -32,6 +32,6 @@ data class TelegramUser(
     @Column(name = "last_message_id")
     val lastMessageId: Long = 0,
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     val carSearches: List<CarSearch> = emptyList(),
 )

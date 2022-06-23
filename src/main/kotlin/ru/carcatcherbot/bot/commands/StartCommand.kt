@@ -13,6 +13,6 @@ class StartCommand(
 ) : BotCommand(Commands.START.code, Commands.START.description) {
 
     override fun execute(absSender: AbsSender, user: User, chat: Chat, arguments: Array<out String>) {
-        startCommandService.handle(user, chat)
+        startCommandService.handle(user)
     }
 }

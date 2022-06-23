@@ -4,15 +4,18 @@ import org.springframework.stereotype.Service
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery
 import org.telegram.telegrambots.meta.api.objects.Message
 import org.telegram.telegrambots.meta.api.objects.Update
+import org.telegram.telegrambots.meta.api.objects.User
+import ru.carcatcherbot.domain.model.States
 import ru.carcatcherbot.service.handlers.LogicContext
 
 interface ReceiverService {
     fun execute(update: Update)
+    fun setState(user: User, state: States)
 }
 
 @Service
 class ReceiverServiceImpl(
-    private val messageContext: LogicContext
+    private val logicContext: LogicContext
 ) : ReceiverService {
     override fun execute(update: Update) {
         if (update.hasMessage()) {
@@ -24,11 +27,15 @@ class ReceiverServiceImpl(
         }
     }
 
+    override fun setState(user: User, state: States) {
+        logicContext.setState(user, state)
+    }
+
     private fun process(message: Message) {
-        messageContext.execute(message)
+        logicContext.execute(message)
     }
 
     private fun process(callbackQuery: CallbackQuery) {
-        messageContext.execute(callbackQuery)
+        logicContext.execute(callbackQuery)
     }
 }

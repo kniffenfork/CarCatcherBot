@@ -16,7 +16,7 @@ class StartingHandler(
 ) : MessageHandler {
     override fun handle(message: Message) {
         applicationEventPublisher.publishEvent(
-            SendMessageEvent(chatId = message.chatId, text = "Введите команду /start для начала поиска")
+            SendMessageEvent(userId = message.chatId, text = "Введите команду /start для начала поиска")
         )
     }
 

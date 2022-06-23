@@ -14,5 +14,6 @@ create table car_searches(
                              mark varchar(100),
                              model varchar(100),
                              generation varchar(100),
-                             user_id bigint references users(id)
+                             user_id bigint references users(id),
+                             status varchar(100) not null default 'EDITING'
 );

@@ -2,54 +2,36 @@ package ru.carcatcherbot.service.commands
 
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
-import org.telegram.telegrambots.meta.api.objects.Chat
 import org.telegram.telegrambots.meta.api.objects.User
-import ru.carcatcherbot.domain.model.CarSearch
-import ru.carcatcherbot.domain.model.TelegramUser
-import ru.carcatcherbot.service.events.Button
-import ru.carcatcherbot.service.events.SendButtonMessage
+import ru.carcatcherbot.domain.model.States
 import ru.carcatcherbot.service.events.SendMessageEvent
-import ru.carcatcherbot.service.handlers.callback.Callbacks
+import ru.carcatcherbot.service.handlers.LogicContext
+import ru.carcatcherbot.service.search.CarSearchService
 import ru.carcatcherbot.service.user.UserService
 
 interface StartCommandService {
-    fun handle(user: User, chat: Chat)
+    fun handle(user: User)
 }
 
 @Service
 class StartCommandServiceImpl(
     private val userService: UserService,
-    private val applicationEventPublisher: ApplicationEventPublisher
+    private val carSearchService: CarSearchService,
+    private val applicationEventPublisher: ApplicationEventPublisher,
+    private val logicContext: LogicContext
 ) : StartCommandService {
-    override fun handle(user: User, chat: Chat) {
-        val telegramUser: TelegramUser = userService.createIfNotExists(user)
-        sendMessage(chat.id, "Добро пожаловать в CarCatcherBot!")
-        if (telegramUser.carSearches.isEmpty()) {
-            sendMessage(chat.id, "Давайте настроим ваш первый поиск!")
-            sendMessage(chat.id, "Введите ваш город")
+    override fun handle(user: User) {
+        userService.createIfNotExists(user)
+        sendMessage(user.id, "Добро пожаловать в CarCatcherBot!")
+        if (carSearchService.getActiveSearchesBy(user.id).isEmpty()) {
+            logicContext.setState(user, States.SEARCH_ADD_INIT)
         } else {
-            sendMessage(chat.id, "Я так вижу ты здесь не в первый раз :)")
-            sendSearches(chat.id, telegramUser.carSearches)
+            sendMessage(user.id, "Я так вижу ты здесь не в первый раз :)")
+            logicContext.setState(user, States.READY_TO_RECEIVE_ADS)
         }
     }
 
-    private fun sendMessage(chatId: Long, text: String) {
-        applicationEventPublisher.publishEvent(SendMessageEvent(chatId, text))
-    }
-
-    private fun sendSearches(chatId: Long, searches: List<CarSearch>) {
-        applicationEventPublisher.publishEvent(
-            SendButtonMessage(
-                chatId,
-                """
-                Текущие параметры поиска:
-                """.trimIndent(),
-                listOf(
-                    listOf(Button(Callbacks.START_SEARCH.message, Callbacks.START_SEARCH)),
-                    listOf(Button(Callbacks.ADD_SEARCH.message, Callbacks.ADD_SEARCH)),
-                    listOf(Button(Callbacks.DELETE_SEARCH.message, Callbacks.DELETE_SEARCH))
-                )
-            )
-        )
+    private fun sendMessage(userId: Long, text: String) {
+        applicationEventPublisher.publishEvent(SendMessageEvent(userId, text))
     }
 }
