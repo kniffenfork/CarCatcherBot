@@ -11,6 +11,8 @@ interface CarSearchService {
     fun makeSearchActive(userId: Long)
     fun getActiveSearchesBy(userId: Long): List<CarSearch>
     fun getEditingSearchesBy(userId: Long): List<CarSearch>
+    fun deleteEditingSearches()
+    fun getCountOfActiveSearchesBy(userId: Long): Long
 }
 
 @Service
@@ -62,4 +64,12 @@ class CarSearchServiceImpl(
     override fun getEditingSearchesBy(userId: Long) = carSearchRepository.findAllByUserIdAndStatusEquals(userId, CarSearchStatus.EDITING)
 
     override fun getActiveSearchesBy(userId: Long): List<CarSearch> = carSearchRepository.findAllByUserIdAndStatusEquals(userId, CarSearchStatus.ACTIVE)
+
+    override fun deleteEditingSearches() {
+        carSearchRepository.deleteAllByStatus(CarSearchStatus.EDITING)
+    }
+
+    override fun getCountOfActiveSearchesBy(userId: Long): Long {
+        return carSearchRepository.countAllByStatusAndUserId(CarSearchStatus.ACTIVE, userId)
+    }
 }

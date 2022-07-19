@@ -1,4 +1,4 @@
-package ru.carcatcherbot.service.handlers.message
+package ru.carcatcherbot.service.handlers.states
 
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service

@@ -10,7 +10,7 @@ import ru.carcatcherbot.service.handlers.CallbackHandler
 import ru.carcatcherbot.service.user.UserService
 
 @Service
-class StartSearchHandler(
+class StartSearch(
     private val userService: UserService,
     private val applicationEventPublisher: ApplicationEventPublisher
 ) : CallbackHandler {

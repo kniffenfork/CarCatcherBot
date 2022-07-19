@@ -24,7 +24,7 @@ class StartCommandServiceImpl(
         userService.createIfNotExists(user)
         sendMessage(user.id, "Добро пожаловать в CarCatcherBot!")
         if (carSearchService.getActiveSearchesBy(user.id).isEmpty()) {
-            logicContext.setState(user, States.SEARCH_ADD_INIT)
+            logicContext.setState(user, States.ADD_SEARCH_INIT)
         } else {
             sendMessage(user.id, "Я так вижу ты здесь не в первый раз :)")
             logicContext.setState(user, States.READY_TO_RECEIVE_ADS)

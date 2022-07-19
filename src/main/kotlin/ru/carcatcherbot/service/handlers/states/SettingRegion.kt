@@ -1,4 +1,4 @@
-package ru.carcatcherbot.service.handlers.message
+package ru.carcatcherbot.service.handlers.states
 
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
@@ -15,28 +15,27 @@ import ru.carcatcherbot.service.search.CarSearchService
 import ru.carcatcherbot.service.user.UserService
 
 @Service
-class SettingModel(
+class SettingRegion(
     private val userService: UserService,
     private val carSearchService: CarSearchService,
     private val applicationEventPublisher: ApplicationEventPublisher
 ) : MessageHandler, StateInitializer {
     override fun handle(message: Message) {
-        carSearchService.addSearchParameters(message.from.id, CarSearchParams(model = message.text))
-        carSearchService.makeSearchActive(message.from.id)
-        applicationEventPublisher.publishEvent(SetStateEvent(message.from, States.READY_TO_RECEIVE_ADS))
+        carSearchService.addSearchParameters(message.from.id, CarSearchParams(region = message.text))
+        applicationEventPublisher.publishEvent(SetStateEvent(message.from, States.WAITING_FOR_MARK_INPUT))
     }
 
     override fun init(user: User) {
         applicationEventPublisher.publishEvent(
             SendButtonMessage(
-                user.id, "Введите модель автомобиля для поиска",
+                user.id, "Введите регион, где искать объявления",
                 listOf(
                     listOf(Callbacks.BACK_TO_MENU),
-                    listOf(Callbacks.BACK_TO_SETTING_MARK)
+                    listOf(Callbacks.BACK_TO_SETTING_CITY)
                 )
             )
         )
     }
 
-    override fun isAvailableForStateOf(user: User) = userService.getStateOf(user) == States.WAITING_FOR_MODEL_INPUT
+    override fun isAvailableForStateOf(user: User) = userService.getStateOf(user) == States.WAITING_FOR_REGION_INPUT
 }

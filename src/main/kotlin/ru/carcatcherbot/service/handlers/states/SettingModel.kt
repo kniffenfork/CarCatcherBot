@@ -1,44 +1,41 @@
-package ru.carcatcherbot.service.handlers.message
+package ru.carcatcherbot.service.handlers.states
 
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.telegram.telegrambots.meta.api.objects.Message
 import org.telegram.telegrambots.meta.api.objects.User
 import ru.carcatcherbot.domain.model.States
-import ru.carcatcherbot.domain.model.buildSearchReport
 import ru.carcatcherbot.service.events.SendButtonMessage
+import ru.carcatcherbot.service.events.SetStateEvent
 import ru.carcatcherbot.service.handlers.MessageHandler
 import ru.carcatcherbot.service.handlers.StateInitializer
 import ru.carcatcherbot.service.handlers.callback.Callbacks
+import ru.carcatcherbot.service.search.CarSearchParams
 import ru.carcatcherbot.service.search.CarSearchService
 import ru.carcatcherbot.service.user.UserService
 
 @Service
-class Menu(
+class SettingModel(
     private val userService: UserService,
-    private val applicationEventPublisher: ApplicationEventPublisher,
-    private val carSearchService: CarSearchService
+    private val carSearchService: CarSearchService,
+    private val applicationEventPublisher: ApplicationEventPublisher
 ) : MessageHandler, StateInitializer {
     override fun handle(message: Message) {
-        TODO("Not yet implemented")
+        carSearchService.addSearchParameters(message.from.id, CarSearchParams(model = message.text))
+        applicationEventPublisher.publishEvent(SetStateEvent(message.from, States.ADD_SEARCH_FINISH))
     }
 
     override fun init(user: User) {
-        val searches = carSearchService.getActiveSearchesBy(user.id)
         applicationEventPublisher.publishEvent(
             SendButtonMessage(
-                user.id,
-                """
-                Текущие параметры поиска:
-                ${buildSearchReport(searches)}
-                """.trimIndent(),
+                user.id, "Введите модель автомобиля для поиска",
                 listOf(
-                    listOf(Callbacks.START_SEARCH),
-                    listOf(Callbacks.ADD_SEARCH),
+                    listOf(Callbacks.BACK_TO_MENU),
+                    listOf(Callbacks.BACK_TO_SETTING_MARK)
                 )
             )
         )
     }
 
-    override fun isAvailableForStateOf(user: User) = userService.getStateOf(user) == States.READY_TO_RECEIVE_ADS
+    override fun isAvailableForStateOf(user: User) = userService.getStateOf(user) == States.WAITING_FOR_MODEL_INPUT
 }

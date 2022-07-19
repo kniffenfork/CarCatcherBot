@@ -6,4 +6,6 @@ import ru.carcatcherbot.domain.model.CarSearchStatus
 
 interface CarSearchRepository : JpaRepository<CarSearch, Long> {
     fun findAllByUserIdAndStatusEquals(userId: Long, status: CarSearchStatus): List<CarSearch>
+    fun deleteAllByStatus(status: CarSearchStatus)
+    fun countAllByStatusAndUserId(status: CarSearchStatus, userId: Long): Long
 }

@@ -7,6 +7,10 @@ bot:
   name: ${BOT_NAME:CarCatcherBot}
   token: ${BOT_TOKEN:5575085822:AAF2FZfof8ZbFyvSwbPrB0vWF_ULf1G9Bg8}
 
+app:
+  user:
+    available-searches-count
+
 avito-api:
   url: ${AVITO_API_ADS_URL:https://ads-api.ru/main/api}
   user: ${AVITO_API_USERNAME:fomin.as@phystech.edu}

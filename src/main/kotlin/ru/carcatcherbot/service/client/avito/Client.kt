@@ -16,6 +16,7 @@ class ClientImpl(
 ) : Client {
     override fun fetchAdds(model: String): AdResponseDto? {
         println(buildSearchUri(model))
+        restTemplate.postForEntity(buildSearchUri(model), Object(), String::class.java).body
         return restTemplate.getForEntity(buildSearchUri(model), AdResponseDto::class.java).body
     }
 
