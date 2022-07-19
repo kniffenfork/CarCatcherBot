@@ -1,0 +1,17 @@
+db:
+  url: ${DB_URL:}
+  username: ${DB_USER:}
+  password: ${DB_PASSWORD:}
+
+bot:
+  name: ${BOT_NAME:}
+  token: ${BOT_TOKEN:}
+
+app:
+  user:
+    available-searches-count:
+
+avito-api:
+  url: ${AVITO_API_ADS_URL:}
+  user: ${AVITO_API_USERNAME:}
+  token: ${AVITO_API_TOKEN:}
